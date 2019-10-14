@@ -23,7 +23,7 @@ public class PlayableMovingManager : MonoBehaviour
     {
         speed = 7;
         jumpMagnitude = 14;
-        multiJumpLimit = 0;
+        multiJumpLimit = 1;
         airJumps = 0;
     }
 
