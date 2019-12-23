@@ -10,8 +10,11 @@ using UnityEngine;
 
 public class PlayableMovingManager : MonoBehaviour
 {
+    public GameObject camera;
+
     public float speed;
     public float jumpMagnitude;
+    public float slowFallMult;
 
     public int multiJumpLimit; //Number of jumps in between rests
     public int airJumps;
@@ -21,8 +24,11 @@ public class PlayableMovingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        camera.GetComponent<Camera>().orthographic = true;
+
         speed = 7;
         jumpMagnitude = 14;
+        slowFallMult = 2;
         multiJumpLimit = 1;
         airJumps = 0;
     }
@@ -46,9 +52,13 @@ public class PlayableMovingManager : MonoBehaviour
         {
             airJumps = 0;
         }
-            
+
         //Slow fall if the player holds down space
         if (GetComponent<Rigidbody>().velocity.y <= 0 && Input.GetKey(KeyCode.Space))
-            GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.x, GetComponent<Rigidbody>().velocity.y / 1.03f, GetComponent<Rigidbody>().velocity.z);
+        {
+            GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.x,
+            GetComponent<Rigidbody>().velocity.y / 1.08f + (0.02f * slowFallMult),
+            GetComponent<Rigidbody>().velocity.z);
+        }
     }
 }
