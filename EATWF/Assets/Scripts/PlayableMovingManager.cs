@@ -25,8 +25,8 @@ public class PlayableMovingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        camera.GetComponent<Camera>().orthographic = true;
-        GetComponent<Rigidbody>().isKinematic = false;
+        camera.GetComponent<Camera>().orthographic = true; //Set player view to be orthographic by default
+        GetComponent<Rigidbody>().isKinematic = false; //Kinematic = bad
 
         midAir = true;
 
