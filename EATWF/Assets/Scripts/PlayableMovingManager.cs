@@ -11,6 +11,7 @@ using UnityEngine;
 public class PlayableMovingManager : MonoBehaviour
 {
     public GameObject camera;
+    public GameObject rigidbody;
 
     public float speed;
     public float jumpMagnitude;
@@ -25,6 +26,9 @@ public class PlayableMovingManager : MonoBehaviour
     void Start()
     {
         camera.GetComponent<Camera>().orthographic = true;
+        GetComponent<Rigidbody>().isKinematic = false;
+
+        midAir = true;
 
         speed = 7;
         jumpMagnitude = 14;
@@ -38,12 +42,22 @@ public class PlayableMovingManager : MonoBehaviour
     {
         //Moving (left and right only)
         if (Input.GetKey(KeyCode.A))
+        {
             transform.Translate(-GetComponent<Transform>().right * Time.deltaTime * speed);
-        if (Input.GetKey(KeyCode.D))
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
             transform.Translate(GetComponent<Transform>().right * Time.deltaTime * speed);
+        }
+
+        //If not moving anymore, slide and stop
+        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        {
+            GetComponent<Rigidbody>().velocity = new Vector3(0.96f * GetComponent<Rigidbody>().velocity.x, GetComponent<Rigidbody>().velocity.y, GetComponent<Rigidbody>().velocity.z);
+        }
 
         //Jumping
-        if (Input.GetKeyDown(KeyCode.Space) && (airJumps < multiJumpLimit || !midAir))
+        if (Input.GetKeyDown(KeyCode.Space) && (airJumps < multiJumpLimit || !midAir)) //If space is pressed, and the player still has some air jumps left or if the player is on the ground
         {
             GetComponent<Rigidbody>().velocity = new Vector3(0, jumpMagnitude, 0);
             airJumps++;
