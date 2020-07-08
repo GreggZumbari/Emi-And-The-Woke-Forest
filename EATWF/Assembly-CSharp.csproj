@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\EntityBehaviorManager.cs" />
+    <Compile Include="Assets\Scripts\Friction.cs" />
     <Compile Include="Assets\Scripts\GlobalSettingsManager.cs" />
     <Compile Include="Assets\Scripts\PlayableGroundCollisionManager.cs" />
     <Compile Include="Assets\Scripts\PlayableMovingManager.cs" />
