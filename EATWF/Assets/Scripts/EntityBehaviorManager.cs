@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿/**
+ * This class will contain everything concerning entity behavior, including but no limited to enemy movement AI and friendly NPC movement AI.
+ * @author Greggory Hickman, July 2020
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,16 +26,18 @@ public class EntityBehaviorManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Detect collision with the player
+        /**
+         * Detect collision with the player
+         */
         //This works by comparing the player's x and y location values with this entity's x and y location values
         float playerLeft = player.GetComponent<Transform>().position.x - 0.5f * player.GetComponent<Transform>().localScale.x;
         float playerRight = player.GetComponent<Transform>().position.x + 0.5f * player.GetComponent<Transform>().localScale.x;
         float playerTop = player.GetComponent<Transform>().position.y + 0.5f * player.GetComponent<Transform>().localScale.y;
         float playerBottom = player.GetComponent<Transform>().position.y - 0.5f * player.GetComponent<Transform>().localScale.y;
-        float enemyLeft = GetComponent<Transform>().position.x - 0.5f * GetComponent<Transform>().localScale.x + damageRadiusX;
-        float enemyRight = GetComponent<Transform>().position.x + 0.5f * GetComponent<Transform>().localScale.x + damageRadiusX;
-        float enemyTop = GetComponent<Transform>().position.y + 0.5f * GetComponent<Transform>().localScale.y + damageRadiusY;
-        float enemyBottom = GetComponent<Transform>().position.y - 0.5f * GetComponent<Transform>().localScale.y + damageRadiusY;
+        float enemyLeft = GetComponent<Transform>().position.x - 0.5f * (GetComponent<Transform>().localScale.x + damageRadiusX);
+        float enemyRight = GetComponent<Transform>().position.x + 0.5f * (GetComponent<Transform>().localScale.x + damageRadiusX);
+        float enemyTop = GetComponent<Transform>().position.y + 0.5f * (GetComponent<Transform>().localScale.y + damageRadiusY);
+        float enemyBottom = GetComponent<Transform>().position.y - 0.5f * (GetComponent<Transform>().localScale.y + damageRadiusY);
         //< = to the left of or below, > = to the right of or above
 
         if (((playerLeft < enemyRight && //If player's left edge is within the x-bounds of the enemy
@@ -51,16 +57,17 @@ public class EntityBehaviorManager : MonoBehaviour
             touchingPlayer = false;
         }
 
-        //Deal damage to the player if there was a collision this frame
+        /**
+         * Deal damage to the player if there was a collision this frame
+         */
         if (touchingPlayer && isHarmful)
         {
             //Damage! Huzzah!!!
-            //player.GetComponent<BoxCollider>().enabled = false;
-            player.GetComponent<MeshRenderer>().enabled = true;
+            GetComponent<MeshRenderer>().enabled = true;
         }
         else
         {
-            player.GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<MeshRenderer>().enabled = false;
         }
     }
 }

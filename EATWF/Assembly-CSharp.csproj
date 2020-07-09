@@ -64,9 +64,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\EntityBehaviorManager.cs" />
     <Compile Include="Assets\Scripts\Friction.cs" />
-    <Compile Include="Assets\Scripts\GlobalSettingsManager.cs" />
     <Compile Include="Assets\Scripts\PlayableGroundCollisionManager.cs" />
     <Compile Include="Assets\Scripts\PlayableMovingManager.cs" />
+    <Compile Include="Assets\Scripts\PlayableStatsManager.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/gregg/iCloudDrive/Desktop/GitHub/Emi-and-the-woke-forest/EATWF/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
