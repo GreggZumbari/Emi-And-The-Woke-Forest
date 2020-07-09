@@ -8,8 +8,10 @@ using UnityEngine;
 
 public class Friction : MonoBehaviour
 {
-    public bool enableFriction; //Enable or disable the friction effect
+    public bool disableFriction; //Enable or disable the friction effect, false means that friction is enabled
     public bool isPlayable; //If the current entity is a playable character
+    public float playerFrictionCoefficient; //The percentage of retained velocity after each frame when no other forces are acting on THE PLAYER
+    public float frictionCoefficient; //The percentage of retained velocity after each frame when no other forces are acting on AN ENTITY
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +26,7 @@ public class Friction : MonoBehaviour
          * Friction!
          */
         //If friction is enabled for this GameObject
-        if (enableFriction)
+        if (!disableFriction)
         {
             //If current GameObject is a playable character
             if (isPlayable)
@@ -32,14 +34,14 @@ public class Friction : MonoBehaviour
                 //If not moving anymore, slide and stop
                 if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
                 {
-                    GetComponent<Rigidbody>().velocity = new Vector3(0.85f * GetComponent<Rigidbody>().velocity.x, GetComponent<Rigidbody>().velocity.y, GetComponent<Rigidbody>().velocity.z);
+                    GetComponent<Rigidbody>().velocity = new Vector3(playerFrictionCoefficient * GetComponent<Rigidbody>().velocity.x, GetComponent<Rigidbody>().velocity.y, GetComponent<Rigidbody>().velocity.z);
                 }
             }
             //If current GameObject is NOT a playable character
             else
             {
                 //Every frame, slightly reduce the x velocity
-                GetComponent<Rigidbody>().velocity = new Vector3(0.96f * GetComponent<Rigidbody>().velocity.x, GetComponent<Rigidbody>().velocity.y, GetComponent<Rigidbody>().velocity.z);
+                GetComponent<Rigidbody>().velocity = new Vector3(frictionCoefficient * GetComponent<Rigidbody>().velocity.x, GetComponent<Rigidbody>().velocity.y, GetComponent<Rigidbody>().velocity.z);
             }
         }
     }
