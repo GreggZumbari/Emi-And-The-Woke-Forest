@@ -19,11 +19,11 @@ public class PlayableGroundCollisionManager : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        player.GetComponent<PlayableMovingManager>().midAir = false; //When the feet touch the ground, set midAir to false
+        player.GetComponent<PlayableMovementManager>().midAir = false; //When the feet touch the ground, set midAir to false
     }
 
     void OnTriggerExit(Collider other)
     {
-        player.GetComponent<PlayableMovingManager>().midAir = true; //When the feet leave the ground, set midAir to true
+        player.GetComponent<PlayableMovementManager>().midAir = true; //When the feet leave the ground, set midAir to true
     }
 }

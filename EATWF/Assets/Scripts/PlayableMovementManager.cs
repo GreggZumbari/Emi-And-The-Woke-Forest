@@ -7,11 +7,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayableMovingManager : MonoBehaviour
+public class PlayableMovementManager : MonoBehaviour
 {
     //These must be defined manually in the inspector
-    public GameObject camera;
-    public GameObject umbrella;
+    public GameObject camera; //The player's view
+    public GameObject umbrella; //Just a sprite basically
+    public GameObject beatsPill; //This is simply the object which holds the Sound Effect Manager
 
     public float speed;
     public float jumpMagnitude;
@@ -22,6 +23,8 @@ public class PlayableMovingManager : MonoBehaviour
 
     public bool midAir;
 
+    private SoundEffectManager sem;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +33,8 @@ public class PlayableMovingManager : MonoBehaviour
         umbrella.GetComponent<SpriteRenderer>().enabled = false; //Disable umbrella icon by default
 
         midAir = true;
+
+        sem = beatsPill.GetComponent<SoundEffectManager>();
 
         speed = 7;
         jumpMagnitude = 14;
@@ -62,6 +67,7 @@ public class PlayableMovingManager : MonoBehaviour
          */
         if (Input.GetKeyDown(KeyCode.Space) && (airJumps < multiJumpLimit || !midAir)) //If space is pressed, and the player still has some air jumps left or if the player is on the ground
         {
+            sem.a_playerJump(GetComponent<AudioSource>());
             GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.x, jumpMagnitude, GetComponent<Rigidbody>().velocity.z);
             airJumps++;
         }
