@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityBehaviorManager : MonoBehaviour
+public class PlayerCollisionDetector : MonoBehaviour
 {
     public GameObject player;
 
@@ -62,12 +62,7 @@ public class EntityBehaviorManager : MonoBehaviour
          */
         if (touchingPlayer && isHarmful)
         {
-            //Damage! Huzzah!!!
-            GetComponent<MeshRenderer>().enabled = true;
-        }
-        else
-        {
-            GetComponent<MeshRenderer>().enabled = false;
+            player.GetComponent<Health>().Harm(15);
         }
     }
 }
