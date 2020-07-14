@@ -11,7 +11,8 @@ public class Health : MonoBehaviour
     public int maxHealth; //The entity's maximum amount of hit points
     public int tempMaxHealth; //The entity's amount of temporary maximum hit points, which are added on top of the entity's maximum hit points
     public int currentHealth; //The entity's current amount of hit points
-    public int tempHealth; //The entity's current amount of temporary hit points, which are additional hit points added on top of the entity's current hit points
+    public int tempHealth; //The entity's current amount of temporary hit points, which are additional hit points added on top of the entity's current hit points (not assosiated with tempMaxHealth)
+    public int localTempMax; //The local maximum of temp HP
 
     public float timeBeforeNextHit; //The minimum amount of time in seconds after the entity is damaged before the entity can take damage again
 
@@ -46,7 +47,7 @@ public class Health : MonoBehaviour
         }
 
         //If total HP is higher than total maximum HP
-        if (currentHealth + tempHealth > maxHealth + tempMaxHealth)
+        if (currentHealth > maxHealth + tempMaxHealth)
         {
             //Lower current HP to be equal to the maximum health
             currentHealth = maxHealth + tempMaxHealth;
@@ -63,6 +64,22 @@ public class Health : MonoBehaviour
         {
             //The entity is alive
             isDead = false;
+        }
+
+        /**
+         * Update the local temp HP maximum so that the UI is updated and looks gucci
+         */
+        //If tempHealth is currently bigger than the old localTempMax
+        if (localTempMax < tempHealth)
+        {
+            //Set the current tempHealth to be the new localTempMax
+            localTempMax = tempHealth;
+        }
+        //If tempHealth reaches 0
+        if (tempHealth <= 0)
+        {
+            //Reset localTempMax
+            localTempMax = 0;
         }
     }
 

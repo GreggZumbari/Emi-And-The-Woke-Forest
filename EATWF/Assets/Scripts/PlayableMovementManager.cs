@@ -38,7 +38,7 @@ public class PlayableMovementManager : MonoBehaviour
 
         speed = 7;
         jumpMagnitude = 14;
-        slowFallMult = 3;
+        slowFallMult = 1;
         multiJumpLimit = 1;
         airJumps = 0;
     }
@@ -83,7 +83,7 @@ public class PlayableMovementManager : MonoBehaviour
         if (GetComponent<Rigidbody>().velocity.y <= 0 && Input.GetKey(KeyCode.Space) && midAir == true)
         {
             GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.x,
-            GetComponent<Rigidbody>().velocity.y / 1.08f + (0.02f * slowFallMult),
+            GetComponent<Rigidbody>().velocity.y / (1.01f + 0.01f * slowFallMult),
             GetComponent<Rigidbody>().velocity.z);
 
             umbrella.GetComponent<SpriteRenderer>().enabled = true; //Pop out the umbrella
